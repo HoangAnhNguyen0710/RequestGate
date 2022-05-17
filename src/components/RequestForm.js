@@ -5,7 +5,6 @@ const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
 
   const [categories, setCategories] = useState([]);
-  const [assignees, setAssignee] = useState([]);
   const [request, setRequest] = useState({
     name: "",
     content: "",
@@ -16,18 +15,21 @@ const RequestForm = () => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories/all`)
       .then((res) => {
+        console.log(res.data)
         setCategories(res.data);
+        setRequest({ ...request, category: res.data[0].cat_name });
       })
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
-    axios
+    if(request.category !== ""){
+      axios
       .get(`${process.env.REACT_APP_URL}/categories/${request.category}`)
       .then((res) => {
-        setAssignee(res.data);
-        setRequest({ ...request, assignee: res.data[0].assignee });
+        setRequest({ ...request, assignee: res.data.assignee });
       })
       .catch((err) => console.log(err));
+    }
   }, [request.category]);
 
   const handleChange = (e) => {
@@ -37,12 +39,7 @@ const RequestForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(request);
-    // setRequest({
-    //     name:"",
-    //     content: "",
-    //     assignee: categories[0].assignee,
-    //     category: categories[0].cat_name,
-    // });
+
     axios
       .post(`${process.env.REACT_APP_URL}/requests`, {
         name: request.name,
@@ -55,6 +52,12 @@ const RequestForm = () => {
       })
       .then((res) => {
         alert(res.data);
+        setRequest({
+        name:"",
+        content: "",
+        assignee: "",
+        category: "",
+      });
       })
       .catch((err) => console.log(err));
   };
@@ -93,17 +96,8 @@ const RequestForm = () => {
               <span className="px-3">Open</span>
             </div>
             <div className="w-1/2">
-              <span>Assign</span>
-              <select
-                name="assignee"
-                className="border-2 mx-3"
-                onChange={handleChange}
-                value={request.assignee}
-              >
-                {assignees.map((assignee) => (
-                  <option value={assignee.assignee}>{assignee.assignee}</option>
-                ))}
-              </select>
+            <span>Assign</span>
+              <span className="border-2 mx-3">{request.assignee}</span>
             </div>
             <div className="w-1/2 my-3">
               <span>Category</span>

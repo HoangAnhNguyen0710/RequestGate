@@ -18,8 +18,6 @@ const UpdateReqForm = (props) => {
   };
   const [request, setRequest] = useState(defaultReq);
   const [categories, setCategories] = useState([]);
-  const [assignees, setAssignees] = useState([]);
-  const [assign, setAssign] = useState(false);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories/all`)
@@ -29,10 +27,10 @@ const UpdateReqForm = (props) => {
     axios
       .get(`${process.env.REACT_APP_URL}/categories/${request.category}`)
       .then((res) => {
-          setAssignees(res.data)
-          setRequest({ ...request, assignee: res.data[0].assignee });
-    });
-  }, [request.category, assign]);
+        console.log(res.data);
+        setRequest({ ...request, assignee: res.data.assignee });
+      });
+  }, [request.category]);
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
@@ -60,10 +58,7 @@ const UpdateReqForm = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const changeAssignee = () => {
-    // setRequest({...request, assignee: assignees[0].assignee});
-    setAssign(true);
-  };
+
   return (
     <>
       <div className="m-3 p-5 flex flex-col border-2">
@@ -111,34 +106,14 @@ const UpdateReqForm = (props) => {
             </div>
             <div className="w-1/2">
               <span>Assign</span>
-              {assign ? (
-                <select
-                  name="assignee"
-                  className="border-2 mx-3"
-                  onChange={handleChange}
-                  value={request.assignee}
-                >
-                  {assignees.map((assignee) => (
-                    <option value={assignee.assignee}>
-                      {assignee.assignee}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <span className="border-2 mx-3" onClick={changeAssignee}>
-                  {request.assignee}
-                </span>
-              )}
+              <span className="border-2 mx-3">{request.assignee}</span>
             </div>
             <div className="w-1/2 my-3">
               <span>Category</span>
               <select
                 name="category"
                 className="border-2 mx-3"
-                onChange={(e) => {
-                  handleChange(e);
-                  changeAssignee();
-                }}
+                onChange={(e) => handleChange(e)}
                 value={request.category}
               >
                 {categories.map((category) => (
