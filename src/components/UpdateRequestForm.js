@@ -32,7 +32,7 @@ const UpdateReqForm = (props) => {
           setAssignees(res.data)
           setRequest({ ...request, assignee: res.data[0].assignee });
     });
-  }, [request.category, assign, request]);
+  }, [request.category, assign]);
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
