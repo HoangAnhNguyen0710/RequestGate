@@ -28,7 +28,7 @@ const RequestForm = () => {
         setRequest({ ...request, assignee: res.data[0].assignee });
       })
       .catch((err) => console.log(err));
-  }, [request.category]);
+  }, [request.category, request]);
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
