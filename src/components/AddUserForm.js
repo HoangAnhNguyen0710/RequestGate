@@ -39,7 +39,7 @@ const AddUserForm = (props) => {
           })
           .then((res) => {
             alert(res.data);
-            props.setHasAccount(true);
+            // props.setHasAccount(true);
           })
           .catch((err) => console.log("User đã tồn tại !"));
         props.setAddUser(false);
@@ -52,9 +52,10 @@ const AddUserForm = (props) => {
   };
   return (
     <div className="border-2 p-3">
+      
       <div className="flex items-center">
-        <div className="rounded-lg p-3 font-semibold text-slate-700 w-11/12">
-          Create User
+        <div className="rounded-lg p-3 font-semibold text-slate-700 w-11/12 text-center">
+          CREATE USER
         </div>
         <button
           className="w-1/12 flex justify-center"
@@ -63,7 +64,7 @@ const AddUserForm = (props) => {
           <AiOutlineCloseCircle />
         </button>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mx-32 pr-16">
         <input
           onChange={onInputChange}
           type="email"

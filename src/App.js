@@ -1,13 +1,13 @@
 
 
-import PageRoutes from "./routes/PageRoutes";
-// import Footer from "./layouts/Footer";
-// import { useNavigate } from "react-router-dom";
+import PublicRoutes from "./routes/PublicRoutes";
+import PrivateRoutes from "./routes/PrivateRoutes";
 function App() {
 
   return (
     <>
-      <PageRoutes />
+      <PublicRoutes/>
+      <PrivateRoutes/>
     </>
   );
 }

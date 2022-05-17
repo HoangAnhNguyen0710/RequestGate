@@ -9,6 +9,7 @@ import authReducer from "./slices/auth"
 import requestsReducer from "./slices/requests"
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import "./assets/css/dist/output.css";
 const store = configureStore({
   reducer:{
     user: userReducer,

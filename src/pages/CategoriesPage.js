@@ -1,17 +1,17 @@
-import ListUsers from "../components/ListUsers";
+import ListCategories from "../components/ListCategories";
 import Footer from "../layouts/Footer";
 import Sidebar from "../layouts/Sidebar";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserDetail from "../components/UserDetail";
-const UsersPage = () => {
+import CategoryDetail from "../components/CategoryDetail";
+const CategoriesPage = () => {
   const [onDetail, setOnDetail] = useState(false);
-  const [userDetail, setUserDetail] = useState();
+  const [categoryDetail, setCatDetail] = useState();
   const [update, setUpdate] = useState(false);
   const isLoggedin = useSelector((state) => state.auth.value);
   const handleChange = (e) => {
-    setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
+    setCatDetail({ ...categoryDetail, [e.target.name]: e.target.value });
   };
   let navigate = useNavigate();
   useEffect(() => {
@@ -20,9 +20,9 @@ const UsersPage = () => {
   return (
     <>
       {onDetail ? (
-        <UserDetail
+        <CategoryDetail
           setOnDetail={setOnDetail}
-          userDetail={userDetail}
+          categoryDetail={categoryDetail}
           handleChange={handleChange}
           update={update}
           setUpdate={setUpdate}
@@ -35,10 +35,11 @@ const UsersPage = () => {
           <Sidebar />
         </div>
         <div className=" w-5/6">
-          <ListUsers
+          <ListCategories
             setOnDetail={setOnDetail}
-            setUserDetail={setUserDetail}
+            setCatDetail={setCatDetail}
             update={update}
+            setUpdate={setUpdate}
           />
         </div>
       </div>
@@ -47,4 +48,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default CategoriesPage;
