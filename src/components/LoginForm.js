@@ -71,7 +71,7 @@ const Login = () => {
   }
   return (
     <div>
-        <div className="rounded-lg p-3 font-semibold text-slate-700 self-center text-xl">Login</div>
+        <div className="rounded-lg p-3 font-semibold text-slate-700 self-center text-xl text-center">Login</div>
         <p ref={errRef} className={errMsg ? "bg-red-300  p-3" : ""}>{errMsg}</p>
             <form onSubmit={handleSubmit}>
                 <input id="email" value={login.email} type="email" className="rounded-lg p-3 block border-2 w-full my-2" onChange={handleChange} name="email" placeholder="Email" ref={userRef} autoComplete="off" required/>
