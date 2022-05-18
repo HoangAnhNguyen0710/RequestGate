@@ -39,7 +39,7 @@ const AddUserForm = (props) => {
           })
           .then((res) => {
             alert(res.data);
-            // props.setHasAccount(true);
+            props.setUpdate(!props.update);
           })
           .catch((err) => console.log("User đã tồn tại !"));
         props.setAddUser(false);

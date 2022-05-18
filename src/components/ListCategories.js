@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import AddCategory from "./AddCategoryForm";
+import { useSelector } from "react-redux";
 const ListCategories = (props) => {
   const [categories, setCategories] = useState([]);
   const [catName, setCatName] = useState("");
   const [addCategory, setAddCategory] = useState(false);
+  const catList = useSelector((state) => state.categories.value);
+
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/categories/all`)
-      .then((res) => {
-        // console.log(res.data)
-        setCategories(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [catName, props.update]);
+     setCategories(catList);
+  }, [catList]);
+
   const handleChange = (e) => {
     setCatName(e.target.value);
   };

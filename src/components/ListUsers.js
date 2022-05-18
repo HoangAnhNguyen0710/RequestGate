@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import AddUserForm from "./AddUserForm";
+import { useSelector } from "react-redux";
 const ListUsers = (props) => {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState("");
   const [addUser, setAddUser] = useState(false);
+  const List = useSelector((state)=>state.userList.value)
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/users/all`)
-      .then((res) => {
-        // console.log(res.data)
-        setUsers(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [name, props.update]);
+        setUsers(List);
+  }, [List]);
   const handleChange = (e) => {
     setName(e.target.value);
   };
@@ -52,7 +47,7 @@ const ListUsers = (props) => {
       </div>
       {/* {onUpdate ? <UpdateReqForm req={updateItem} setOnUpdate = {setOnUpdate}/> : <></>} */}
       {addUser ? (
-        <AddUserForm setAddUser={setAddUser} />
+        <AddUserForm setAddUser={setAddUser} update={props.update} setUpdate={props.setUpdate}/>
       ) : (
         <>
           <table className="table-fixed text-sm text-left border-2">

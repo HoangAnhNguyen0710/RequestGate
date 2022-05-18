@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
-
+  const cat = useSelector((state) => state.categories.value);
   const [categories, setCategories] = useState([]);
   const [request, setRequest] = useState({
     name: "",
@@ -12,14 +12,8 @@ const RequestForm = () => {
     category: "",
   });
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/categories/all`)
-      .then((res) => {
-        console.log(res.data)
-        setCategories(res.data);
-        setRequest({ ...request, category: res.data[0].cat_name });
-      })
-      .catch((err) => console.log(err));
+        setCategories(cat);
+        setRequest({ ...request, category: cat[0].cat_name });
   }, []);
   useEffect(() => {
     if(request.category !== ""){

@@ -31,7 +31,9 @@ const AddCategory = (props) => {
           })
           .then((res) => {
             alert(res.data);
+            // props.setReload(!props.reload);
             props.setUpdate(!props.update);
+            
           })
           .catch((err) => console.log(err));
         props.setAddCategory(false);

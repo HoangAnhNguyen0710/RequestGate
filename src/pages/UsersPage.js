@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserDetail from "../components/UserDetail";
+import { useDispatch } from "react-redux";
+import { setUserList } from "../slices/userList"; 
+import axios from "axios";
 const UsersPage = () => {
+  const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
   const [userDetail, setUserDetail] = useState();
   const [update, setUpdate] = useState(false);
@@ -14,6 +18,13 @@ const UsersPage = () => {
     setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
   };
   let navigate = useNavigate();
+
+  useEffect(()=> {
+    axios.get(`${process.env.REACT_APP_URL}/users/all`).then((res) => {
+      dispatch(setUserList(res.data));
+    });
+  },[dispatch, update])
+
   useEffect(() => {
     if (!isLoggedin) navigate("/Login");
   }, [isLoggedin, navigate]);
@@ -39,6 +50,7 @@ const UsersPage = () => {
             setOnDetail={setOnDetail}
             setUserDetail={setUserDetail}
             update={update}
+            setUpdate={setUpdate}
           />
         </div>
       </div>

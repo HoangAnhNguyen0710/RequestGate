@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryDetail from "../components/CategoryDetail";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setCatList } from "../slices/categories";
 const CategoriesPage = () => {
+  const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
   const [categoryDetail, setCatDetail] = useState();
   const [update, setUpdate] = useState(false);
@@ -17,6 +21,11 @@ const CategoriesPage = () => {
   useEffect(() => {
     if (!isLoggedin) navigate("/Login");
   }, [isLoggedin, navigate]);
+  useEffect(()=> {
+    axios.get(`${process.env.REACT_APP_URL}/categories/all`).then((res) => {
+      dispatch(setCatList(res.data));
+    });
+  },[dispatch, update])
   return (
     <>
       {onDetail ? (
