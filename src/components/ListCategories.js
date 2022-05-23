@@ -6,20 +6,32 @@ const ListCategories = (props) => {
   const [categories, setCategories] = useState([]);
   const [catName, setCatName] = useState("");
   const [addCategory, setAddCategory] = useState(false);
+  const [searchCat, setSearchCat] = useState("");
   const catList = useSelector((state) => state.categories.value);
-
+  const List = props.List;
   useEffect(() => {
-     setCategories(catList);
-  }, [catList]);
+    setCategories(List);
+    setSearchCat("");
+  }, [List]);
 
   const handleChange = (e) => {
     setCatName(e.target.value);
+    if (e.target.value === "") {
+      setCategories(List);
+      setSearchCat("");
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const newList = categories.filter((user) => user.catName === catName);
-    setCategories(newList);
+    const newDisplayList = List.filter(
+      (user) => user.cat_name.toLowerCase() !== catName.toLowerCase()
+    );
+    setCategories(newDisplayList);
+    const search = catList.find(
+      (user) => user.cat_name.toLowerCase() === catName.toLowerCase()
+    );
+    if (!search) setSearchCat("");
+    else setSearchCat(search);
   };
 
   const catDetail = (cat) => {
@@ -27,7 +39,7 @@ const ListCategories = (props) => {
     props.setOnDetail(true);
   };
   return (
-    <div className="m-3 p-5 flex flex-col border-2">
+    <div className="m-3 p-5 flex flex-col border-2 h-1/2">
       <h4 className="w-11/12">LIST CATEGORIES</h4>
       <div className="flex">
         <form className="flex w-full" onSubmit={handleSubmit}>
@@ -59,16 +71,19 @@ const ListCategories = (props) => {
           <table className="table-fixed text-sm text-left border-2">
             <thead>
               <tr className="bg-slate-300 py-6">
-                <th>STT</th>
                 <th>Name</th>
                 <th>Assignee</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
+              <tr onClick={() => catDetail(searchCat)}>
+                <td className="bg-yellow-300">{searchCat.cat_name}</td>
+                <td className="bg-yellow-300">{searchCat.assignee}</td>
+                <td className="bg-yellow-300">{searchCat.status}</td>
+              </tr>
               {categories.map((cat) => (
                 <tr key={cat._id} onClick={() => catDetail(cat)}>
-                  <td>1</td>
                   <td>{cat.cat_name}</td>
                   <td>{cat.assignee}</td>
                   <td>{cat.status}</td>

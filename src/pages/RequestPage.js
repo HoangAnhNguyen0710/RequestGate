@@ -17,7 +17,6 @@ const RequestPage = () => {
           <Sidebar />
         </div>
         <div className=" w-5/6">
-          {/* <p>Requests :</p> */}
           <RequestForm />
         </div>
       </div>

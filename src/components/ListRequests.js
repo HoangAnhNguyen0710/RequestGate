@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UpdateReqForm from "./UpdateRequestForm";
-const ListRequests = () => {
+// import Filter from "./Filter";
+const ListRequests = (props) => {
   const [onUpdate, setOnUpdate] = useState(false);
   const [updateItem, setUpdateItem] = useState();
-  const requests = useSelector((state) => state.requests.value);
+  const [requests, setRequests] = useState([]);
   const user = useSelector((state) => state.user.value);
   const update = (req) => {
     if (user.email === req.author) {
@@ -12,8 +13,13 @@ const ListRequests = () => {
       setOnUpdate(true);
     }
   };
+  const List = props.List;
+  useEffect(() => {
+    setRequests(List);
+  }, [List]);
   return (
-    <div className="m-3 p-5 flex flex-col border-2">
+    <div className="m-3 p-5 flex flex-col border-2 h-1/2">
+      {/* <Filter/> */}
       {onUpdate ? (
         <UpdateReqForm req={updateItem} setOnUpdate={setOnUpdate} />
       ) : (
@@ -33,7 +39,7 @@ const ListRequests = () => {
         </thead>
         <tbody>
           {requests.map((req) => (
-            <tr key={req._id} onClick={() => update(req)}>
+            <tr key={req._id} onClick={() => update(req)} className="overflow-hidden">
               <td>{req.name}</td>
               <td>{req.content}</td>
               <td>{req.author}</td>

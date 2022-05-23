@@ -102,7 +102,7 @@ const RequestForm = () => {
                 value={request.category}
               >
                 {categories.map((category) => (
-                  <option value={category.cat_name}>{category.cat_name}</option>
+                  <option key={category._id} value={category.cat_name}>{category.cat_name}</option>
                 ))}
               </select>
             </div>

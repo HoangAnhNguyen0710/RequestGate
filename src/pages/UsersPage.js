@@ -8,17 +8,21 @@ import UserDetail from "../components/UserDetail";
 import { useDispatch } from "react-redux";
 import { setUserList } from "../slices/userList"; 
 import axios from "axios";
+import Pagination from "../components/Pagination";
 const UsersPage = () => {
   const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
   const [userDetail, setUserDetail] = useState();
   const [update, setUpdate] = useState(false);
   const isLoggedin = useSelector((state) => state.auth.value);
+  const List = useSelector((state)=>state.userList.value)
+  const itemsPerPage = 8;
   const handleChange = (e) => {
     setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
   };
   let navigate = useNavigate();
-
+  const [pageNum, setPageNum] = useState(0);
+  const newList = List.slice(itemsPerPage*pageNum, itemsPerPage*(pageNum+1));
   useEffect(()=> {
     axios.get(`${process.env.REACT_APP_URL}/users/all`).then((res) => {
       dispatch(setUserList(res.data));
@@ -51,6 +55,11 @@ const UsersPage = () => {
             setUserDetail={setUserDetail}
             update={update}
             setUpdate={setUpdate}
+            List={newList}
+          />
+          <Pagination 
+          totalPage ={List.length/itemsPerPage}
+          setPageNum={setPageNum}
           />
         </div>
       </div>
