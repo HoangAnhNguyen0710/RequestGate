@@ -17,8 +17,8 @@ import { setHistoryList } from "../slices/history";
 const HomePage = () => {
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
-  // const [hideReqList, setHideReqList] = useState(false);
   const isLoggedin = useSelector((state) => state.auth.value);
+  //pagination
   const List = useSelector((state) => state.requests.value);
   const itemsPerPage = 8;
   const [pageNum, setPageNum] = useState(0);
@@ -39,6 +39,7 @@ const HomePage = () => {
       dispatch(setCatList(res.data));
     });
   }, [dispatch]);
+  
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_URL}/history/all`).then((res) => {
       dispatch(setHistoryList(res.data));
