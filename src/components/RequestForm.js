@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
@@ -39,7 +39,7 @@ const RequestForm = () => {
       .post(`${process.env.REACT_APP_URL}/requests`, {
         name: request.name,
         content: request.content,
-        author: user.email,
+        author: user.name,
         date_created: new Date(),
         category: request.category,
         assignee: request.assignee,
@@ -47,6 +47,7 @@ const RequestForm = () => {
       })
       .then((res) => {
         console.log(res.data);
+        alert("Tạo mới Request thành công !")
         setRequest({
         name:"",
         content: "",

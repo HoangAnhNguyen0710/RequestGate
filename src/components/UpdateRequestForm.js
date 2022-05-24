@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setRequests } from "../slices/requests";
 const UpdateReqForm = (props) => {
   const dispatch = useDispatch();
   //  const [permission, setPermission] = useState(true);
-
+  const user = useSelector((state)=> state.user.value);
   const defaultReq = {
     _id: props.req._id,
     name: props.req.name,
@@ -55,6 +55,14 @@ const UpdateReqForm = (props) => {
           const req = res.data;
           dispatch(setRequests(req));
         });
+        axios.post(`${process.env.REACT_APP_URL}/history`, {
+          request_name: res.data.name,
+          request_id: res.data._id,
+          user_id: user._id,
+          user_name: user.name,
+          updated_time: new Date(),
+          status: "Update",
+        })
       })
       .catch((err) => console.log(err));
   };
@@ -70,6 +78,12 @@ const UpdateReqForm = (props) => {
               className="bg-green-500 text-slate-50 px-3 py-1 shadow-lg"
             >
               Update
+            </button>
+            <button
+              className="bg-red-500 text-slate-50 mx-3 px-1 py-1 shadow-lg"
+              onClick={()=> props.setOnUpdate(false)}
+            >
+              Cancel
             </button>
           </div>
           <input

@@ -65,7 +65,6 @@ const HomePage = () => {
             setPageNum={setPageNum}
           />
           </div>
-       
         </div>
         <div className="w-1/6">
           <HistoryRequests />

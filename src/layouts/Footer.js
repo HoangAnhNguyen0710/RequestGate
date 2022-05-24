@@ -5,7 +5,7 @@ import Certi from "../assets/images/certi.png";
 import Certi2 from "../assets/images/certi2.png";
 const Footer = () => {
   return (
-    <div className="min-h-48 bg-slate-200">
+    <div className="min-h-48 bg-slate-200 z-50">
       <div className=" flex pt-6 px-12">
         <div className="px-4 flex flex-col w-1/6">
           <img src={Logo} alt="logo_HBLAB"></img>

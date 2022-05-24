@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import UpdateReqForm from "./UpdateRequestForm";
-// import Filter from "./Filter";
+import { AiOutlineEye } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
 const ListRequests = (props) => {
   const [onUpdate, setOnUpdate] = useState(false);
   const [updateItem, setUpdateItem] = useState();
@@ -44,7 +45,7 @@ const ListRequests = (props) => {
               <td>{req.date_created}</td>
               <td>{req.category}</td>
               <td>{req.assignee}</td>
-              <td>{req.status}</td>
+              <td>{req.status}<NavLink to={`/Requests/${req._id}`}><AiOutlineEye/></NavLink></td>
             </tr>
           ))}
         </tbody>
