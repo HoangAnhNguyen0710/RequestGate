@@ -54,6 +54,14 @@ const RequestDetail = (props) => {
         alert(res.data);
         setReset(!reset);
         setComment("");
+        axios.post(`${process.env.REACT_APP_URL}/history`, {
+            request_name: request.name,
+            request_id: request._id,
+            user_id: user._id,
+            user_name: user.name,
+            updated_time: new Date(),
+            status: "Comment",
+          })
       })
       .catch((err) => console.log(err));
   };

@@ -8,7 +8,7 @@ const HistoryRequests = () => {
   const HistoryList = useSelector((state) => state.history.value);
   const navigate = useNavigate();
   //phục vụ pagination
-  const itemsPerPage = 8;
+  const itemsPerPage = 3;
   const [pageNum, setPageNum] = useState(0);
   const newList = HistoryList.slice(
     itemsPerPage * pageNum,

@@ -62,6 +62,8 @@ const UpdateReqForm = (props) => {
           user_name: user.name,
           updated_time: new Date(),
           status: "Update",
+        }).then(()=>{
+          props.setUpdateHistory(!props.UpdateHistory)
         })
       })
       .catch((err) => console.log(err));

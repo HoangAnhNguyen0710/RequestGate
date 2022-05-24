@@ -59,7 +59,7 @@ const HomePage = () => {
           <Header />
           <Filter />
           <div className="overflow-hidden">
-          <ListRequests List={newList} setUpdate={setUpdate} />
+          <ListRequests List={newList} setUpdate={setUpdate} update={update} />
           <Pagination
             totalPage={List.length / itemsPerPage}
             setPageNum={setPageNum}

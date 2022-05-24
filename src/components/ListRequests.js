@@ -22,7 +22,7 @@ const ListRequests = (props) => {
     <div className="m-3 p-5 flex flex-col border-2 h-2/3">
       {/* <Filter/> */}
       {onUpdate ? (
-        <UpdateReqForm req={updateItem} setOnUpdate={setOnUpdate} />
+        <UpdateReqForm req={updateItem} setOnUpdate={setOnUpdate} setUpdateHistory={props.setUpdate} UpdateHistory={props.update}/>
       ) : (
         <table className="table-fixed text-sm text-left border-2">
         <thead>
