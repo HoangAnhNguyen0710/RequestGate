@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
   const cat = useSelector((state) => state.categories.value);
@@ -28,11 +29,11 @@ const RequestForm = () => {
 
   const handleChange = (e) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
-    console.log(request);
+    // console.log(request);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(request);
+    // console.log(request);
 
     axios
       .post(`${process.env.REACT_APP_URL}/requests`, {
@@ -45,13 +46,21 @@ const RequestForm = () => {
         status: "Open",
       })
       .then((res) => {
-        alert(res.data);
+        console.log(res.data);
         setRequest({
         name:"",
         content: "",
         assignee: "",
         category: "",
       });
+      axios.post(`${process.env.REACT_APP_URL}/history`, {
+        request_name: res.data.name,
+        request_id: res.data._id,
+        user_id: user._id,
+        user_name: user.name,
+        updated_time: new Date(),
+        status: "Create new",
+      }).then((res)=>console.log(res))
       })
       .catch((err) => console.log(err));
   };

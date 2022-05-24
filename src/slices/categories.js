@@ -6,9 +6,7 @@ export const categoriesSlice = createSlice({
     reducers: {
         setCatList: (state, action) => {
             state.value = action.payload
-        },
-
-        
+        },   
     },
 });
 

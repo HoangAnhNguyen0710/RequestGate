@@ -9,6 +9,7 @@ import authReducer from "./slices/auth";
 import requestsReducer from "./slices/requests";
 import CategoriesReducer from "./slices/categories";
 import userListReducer from './slices/userList';
+import historyReducer from './slices/history'
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import "./assets/css/dist/output.css";
@@ -18,7 +19,8 @@ const store = configureStore({
     auth: authReducer,
     requests: requestsReducer,
     categories : CategoriesReducer,
-    userList: userListReducer
+    userList: userListReducer,
+    history: historyReducer
   },
 });
 

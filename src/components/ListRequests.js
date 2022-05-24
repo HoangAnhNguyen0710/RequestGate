@@ -18,14 +18,12 @@ const ListRequests = (props) => {
     setRequests(List);
   }, [List]);
   return (
-    <div className="m-3 p-5 flex flex-col border-2 h-1/2">
+    <div className="m-3 p-5 flex flex-col border-2 h-2/3">
       {/* <Filter/> */}
       {onUpdate ? (
         <UpdateReqForm req={updateItem} setOnUpdate={setOnUpdate} />
       ) : (
-        <></>
-      )}
-      <table className="table-fixed text-sm text-left border-2">
+        <table className="table-fixed text-sm text-left border-2">
         <thead>
           <tr className="bg-slate-300 py-6">
             <th>Name request</th>
@@ -51,14 +49,9 @@ const ListRequests = (props) => {
           ))}
         </tbody>
       </table>
+      )}
+     
 
-      {/* <Pagination
-        //   activePage={this.state.activePage}
-            itemsCountPerPage={10}
-            totalItemsCount={450}
-            pageRangeDisplayed={5}
-        //   onChange={this.handlePageChange.bind(this)}
-           /> */}
     </div>
   );
 };

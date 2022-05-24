@@ -118,11 +118,6 @@ const Filter = () => {
                       className="p-1 border-2 border-black"
                       value={filterDetail.author}
                     />
-                    {/* <datalist id="status">
-                       <option value="Open"/>
-                       <option value="Done"/>
-                       <option value="Reject"/>
-                    </datalist> */}
                   </div>
                   <div className="flex flex-col m-2 w-1/5">
                     <span className="py-2">Assign</span>
