@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
+import axiosClient from "../config/axiosClient";
 
 const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
@@ -18,7 +18,7 @@ const RequestForm = () => {
   }, []);
   useEffect(() => {
     if(request.category !== ""){
-      axios
+      axiosClient
       .get(`${process.env.REACT_APP_URL}/categories/${request.category}`)
       .then((res) => {
         setRequest({ ...request, assignee: res.data.assignee });
@@ -35,7 +35,7 @@ const RequestForm = () => {
     e.preventDefault();
     // console.log(request);
 
-    axios
+    axiosClient
       .post(`${process.env.REACT_APP_URL}/requests`, {
         name: request.name,
         content: request.content,
@@ -54,7 +54,7 @@ const RequestForm = () => {
         assignee: "",
         category: "",
       });
-      axios.post(`${process.env.REACT_APP_URL}/history`, {
+      axiosClient.post(`${process.env.REACT_APP_URL}/history`, {
         request_name: res.data.name,
         request_id: res.data._id,
         user_id: user._id,

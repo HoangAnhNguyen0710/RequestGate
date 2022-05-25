@@ -1,10 +1,10 @@
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 
 const UserDetail = (props) => {
   const userDetail = props.userDetail;
   const handleSubmit = (e) => {
       e.preventDefault();
-      axios.put(`${process.env.REACT_APP_URL}/users/update`, {
+      axiosClient.put(`/users/update`, {
         _id: userDetail._id,
         name: userDetail.name,
         ma_nv: userDetail.ma_nv,

@@ -1,9 +1,9 @@
 import { FaFilter } from "react-icons/fa";
 import { AiOutlineDown, AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setRequests } from "../slices/requests";
+import axiosClient from "../config/axiosClient";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Filter = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(filterDetail);
-    axios
+    axiosClient
       .post(`${process.env.REACT_APP_URL}/requests/filter`, {
         name: filterDetail.name,
         content: filterDetail.content,

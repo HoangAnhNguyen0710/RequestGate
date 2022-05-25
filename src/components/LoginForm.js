@@ -4,7 +4,7 @@ import { setUser } from "../slices/user";
 import { setLoggedIn } from "../slices/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -44,14 +44,18 @@ const Login = () => {
         const saveLogin = JSON.stringify(login)
         localStorage.setItem("RequestGateUser", saveLogin);
     }
-    axios.post(`${process.env.REACT_APP_URL}/users/login`, {
+    axiosClient.post(`/users/login`, {
         email: login.email,
         password: login.password
     }).then(
     (res) => {
         console.log(res.data)
-        // const accessToken = res?.data?.accessToken;
-        dispatch(setUser({_id: res.data._id, email: res.data.email, name: res.data.name, role: res.data.role}))
+        const user = res.data.user;
+        const accessToken = res?.data?.accessToken;
+        //save token
+        localStorage.setItem("accessToken", accessToken);
+        //
+        dispatch(setUser({_id: user._id, email: user.email, name: user.name, role: user.role}))
         dispatch(setLoggedIn(true));
         navigate("/");
     } 

@@ -45,7 +45,7 @@ const ListRequests = (props) => {
               <td>{req.date_created}</td>
               <td>{req.category}</td>
               <td>{req.assignee}</td>
-              <td>{req.status}<NavLink to={`/Requests/${req._id}`}><AiOutlineEye/></NavLink></td>
+              <td>{req.status}<NavLink to={`/requests/${req._id}`}><AiOutlineEye/></NavLink></td>
             </tr>
           ))}
         </tbody>

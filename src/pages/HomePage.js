@@ -7,13 +7,13 @@ import Header from "../layouts/Header";
 import ListRequests from "../components/ListRequests";
 import Filter from "../components/Filter";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { setRequests } from "../slices/requests";
 import Pagination from "../components/Pagination";
 import HistoryRequests from "../components/HistoryRequests";
 import { setUserList } from "../slices/userList";
 import { setCatList } from "../slices/categories";
 import { setHistoryList } from "../slices/history";
+import axiosClient from "../config/axiosClient";
 const HomePage = () => {
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
@@ -28,20 +28,20 @@ const HomePage = () => {
   );
   let navigate = useNavigate();
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_URL}/requests/all`).then((res) => {
+    axiosClient.get(`/requests/all`).then((res) => {
       const req = res.data;
       dispatch(setRequests(req));
     });
-    axios.get(`${process.env.REACT_APP_URL}/users/all`).then((res) => {
+    axiosClient.get(`/users/all`).then((res) => {
       dispatch(setUserList(res.data));
     });
-    axios.get(`${process.env.REACT_APP_URL}/categories/all`).then((res) => {
+    axiosClient.get(`/categories/all`).then((res) => {
       dispatch(setCatList(res.data));
     });
   }, [dispatch]);
-  
+
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_URL}/history/all`).then((res) => {
+    axiosClient.get(`/history/all`).then((res) => {
       dispatch(setHistoryList(res.data));
     });
   }, [dispatch, update]);

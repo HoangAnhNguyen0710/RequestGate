@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import UserDetail from "../components/UserDetail";
 import { useDispatch } from "react-redux";
 import { setUserList } from "../slices/userList"; 
-import axios from "axios";
 import Pagination from "../components/Pagination";
+import axiosClient from "../config/axiosClient";
 const UsersPage = () => {
   const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
@@ -24,7 +24,7 @@ const UsersPage = () => {
   const [pageNum, setPageNum] = useState(0);
   const newList = List.slice(itemsPerPage*pageNum, itemsPerPage*(pageNum+1));
   useEffect(()=> {
-    axios.get(`${process.env.REACT_APP_URL}/users/all`).then((res) => {
+    axiosClient.get(`/users/all`).then((res) => {
       dispatch(setUserList(res.data));
     });
   },[dispatch, update])

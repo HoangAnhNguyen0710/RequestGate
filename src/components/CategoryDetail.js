@@ -1,17 +1,17 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axiosClient from "../config/axiosClient";
 const CategoryDetail = (props) => {
     
   const [assignee, setAssignee] = useState([]);
   const categoryDetail = props.categoryDetail;
   useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_URL}/users/all`)
+    axiosClient.get(`${process.env.REACT_APP_URL}/users/all`)
     .then((res)=>setAssignee(res.data))
     .catch((err)=>console.log(err));
  }, [categoryDetail.cat_name])
   const handleSubmit = (e) => {
       e.preventDefault();
-      axios.put(`${process.env.REACT_APP_URL}/categories/update`, {
+      axiosClient.put(`${process.env.REACT_APP_URL}/categories/update`, {
         _id: categoryDetail._id,
         cat_name: categoryDetail.cat_name,
         assignee: categoryDetail.assignee

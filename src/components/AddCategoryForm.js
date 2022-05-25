@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import axiosClient from "../config/axiosClient";
 // import { useForm } from "react-hook-form";
 const AddCategory = (props) => {
   // const { register, errors } = useForm();
@@ -11,7 +11,7 @@ const AddCategory = (props) => {
     status: "Enable",
   });
   useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_URL}/users/all`)
+    axiosClient.get(`${process.env.REACT_APP_URL}/users/all`)
     .then((res)=> setUsers(res.data))
     .catch((err)=>console.log(err));
     
@@ -23,7 +23,7 @@ const AddCategory = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
         //axios request
-        axios
+        axiosClient
           .post(`${process.env.REACT_APP_URL}/categories`, {
             cat_name: category.cat_name,
             assignee: category.assignee,

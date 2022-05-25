@@ -56,7 +56,6 @@ const ListUsers = (props) => {
           Add
         </button>
       </div>
-      {/* {onUpdate ? <UpdateReqForm req={updateItem} setOnUpdate = {setOnUpdate}/> : <></>} */}
       {addUser ? (
         <AddUserForm
           setAddUser={setAddUser}

@@ -2,8 +2,8 @@ import React from "react";
 import User from "../assets/images/user.png";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import Pagination from "./Pagination";
+import axiosClient from "../config/axiosClient";
 const RequestDetail = (props) => {
   const user = useSelector((state) => state.user.value);
   const request_id = props.request_id;
@@ -19,7 +19,7 @@ const RequestDetail = (props) => {
     itemsPerPage * (pageNum + 1)
   );
   useEffect(() => {
-    axios
+    axiosClient
       .get(`${process.env.REACT_APP_URL}/requests/${request_id}`)
       .then((res) => {
         setRequest(res.data);
@@ -28,7 +28,7 @@ const RequestDetail = (props) => {
   }, [request_id]);
   
   useEffect(() => {
-    axios
+    axiosClient
       .get(`${process.env.REACT_APP_URL}/comments/${request_id}`)
       .then((res) => {
         setCmtList(res.data);
@@ -48,13 +48,13 @@ const RequestDetail = (props) => {
       updated_time: new Date(),
       content: comment,
     };
-    axios
+    axiosClient
       .post(`${process.env.REACT_APP_URL}/comments`, newCmt)
       .then((res) => {
         alert(res.data);
         setReset(!reset);
         setComment("");
-        axios.post(`${process.env.REACT_APP_URL}/history`, {
+        axiosClient.post(`${process.env.REACT_APP_URL}/history`, {
             request_name: request.name,
             request_id: request._id,
             user_id: user._id,

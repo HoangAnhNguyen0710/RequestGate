@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import axiosClient from "../config/axiosClient";
 // import { useForm } from "react-hook-form";
 const AddUserForm = (props) => {
   // const { register, errors } = useForm();
@@ -27,7 +27,7 @@ const AddUserForm = (props) => {
         alert("Your password is too short, please choose another one");
       else {
         //axios request
-        axios
+        axiosClient
           .post(`${process.env.REACT_APP_URL}/users`, {
             email: signIn.email,
             password: signIn.password,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import axiosClient from "../config/axiosClient";
 import { setRequests } from "../slices/requests";
 const UpdateReqForm = (props) => {
   const dispatch = useDispatch();
@@ -19,13 +19,13 @@ const UpdateReqForm = (props) => {
   const [request, setRequest] = useState(defaultReq);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/categories/all`)
+    axiosClient
+      .get(`/categories/all`)
       .then((res) => setCategories(res.data));
   }, []);
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/categories/${request.category}`)
+    axiosClient
+      .get(`/categories/${request.category}`)
       .then((res) => {
         console.log(res.data);
         setRequest({ ...request, assignee: res.data.assignee });
@@ -40,8 +40,8 @@ const UpdateReqForm = (props) => {
     console.log(request);
     props.setOnUpdate(false);
     // setRequest(defaultReq);
-    axios
-      .post(`${process.env.REACT_APP_URL}/requests/update`, {
+    axiosClient
+      .post(`/requests/update`, {
         _id: request._id,
         name: request.name,
         content: request.content,
@@ -51,11 +51,11 @@ const UpdateReqForm = (props) => {
       })
       .then((res) => {
         console.log(res.data);
-        axios.get(`${process.env.REACT_APP_URL}/requests/all`).then((res) => {
+        axiosClient.get(`/requests/all`).then((res) => {
           const req = res.data;
           dispatch(setRequests(req));
         });
-        axios.post(`${process.env.REACT_APP_URL}/history`, {
+        axiosClient.post(`/history`, {
           request_name: res.data.name,
           request_id: res.data._id,
           user_id: user._id,
