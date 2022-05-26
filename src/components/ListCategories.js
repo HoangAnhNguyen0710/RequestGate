@@ -39,7 +39,7 @@ const ListCategories = (props) => {
     props.setOnDetail(true);
   };
   return (
-    <div className="m-3 p-5 flex flex-col border-2 h-1/2">
+    <div className="m-3 p-5 flex flex-col border-2 h-3/5">
       <h4 className="w-11/12">LIST CATEGORIES</h4>
       <div className="flex">
         <form className="flex w-full" onSubmit={handleSubmit}>

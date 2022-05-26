@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import AddUserForm from "./AddUserForm";
 import { useSelector } from "react-redux";
+import Pagination from "./Pagination";
 const ListUsers = (props) => {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState("");
   const [addUser, setAddUser] = useState(false);
   const [searchUser, setSearchUser] = useState("");
   const fullList = useSelector((state) => state.userList.value);
-  const List = props.List;
+  //pagination
+  const itemsPerPage = 6;
+  const [pageNum, setPageNum] = useState(0);
+  const List = fullList.slice(itemsPerPage*pageNum, itemsPerPage*(pageNum+1));
   useEffect(() => {
     setUsers(List);
     setSearchUser("");
@@ -35,7 +39,7 @@ const ListUsers = (props) => {
     props.setOnDetail(true);
   };
   return (
-    <div className="m-3 p-5 flex flex-col border-2 h-1/2">
+    <div className="m-3 p-5 flex flex-col border-2 h-fit">
       <h4 className="w-11/12">LIST USERS</h4>
       <div className="flex">
         <form className="flex w-full" onSubmit={handleSubmit}>
@@ -64,7 +68,7 @@ const ListUsers = (props) => {
         />
       ) : (
         <>
-          <table className="table-fixed text-sm text-left border-2">
+          <table className="table-fixed text-sm text-left border-2 my-4">
             <thead>
               <tr className="bg-slate-300 py-6">
                 <th>Name</th>
@@ -95,6 +99,10 @@ const ListUsers = (props) => {
           </table>
         </>
       )}
+        <Pagination
+          totalPage ={fullList.length/itemsPerPage}
+          setPageNum={setPageNum}
+          />
     </div>
   );
 };

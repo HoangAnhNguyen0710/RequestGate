@@ -13,18 +13,20 @@ const AddUserForm = (props) => {
     role: "",
     status: "Active",
   });
+  const [errMsg, setErrMsg] = useState("");
   const [passwordCf, setPasswordCf] = useState("");
   const onInputChange = (e) => {
+    setErrMsg("");
     setSignIn({ ...signIn, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (signIn.password !== passwordCf)
-      alert("Invalid ! Please confirm your password again !");
+      setErrMsg("Invalid ! Please confirm your password again !");
     else {
       if (signIn.password.length < 8)
-        alert("Your password is too short, please choose another one");
+        setErrMsg("Your password is too short, please choose another one");
       else {
         //axios request
         axiosClient
@@ -40,9 +42,16 @@ const AddUserForm = (props) => {
           .then((res) => {
             alert(res.data);
             props.setUpdate(!props.update);
+            props.setAddUser(false);
           })
-          .catch((err) => console.log("User đã tồn tại !"));
-        props.setAddUser(false);
+          .catch((err) => {
+            if(!err?.response){
+              setErrMsg('No server response');
+          } 
+          else{
+              setErrMsg(err.response.data)
+          }
+          });
       }
     }
   };
@@ -52,7 +61,7 @@ const AddUserForm = (props) => {
   };
   return (
     <div className="border-2 p-3">
-      
+      <div className="m-3 bg-red-400">{errMsg}</div>
       <div className="flex items-center">
         <div className="rounded-lg p-3 font-semibold text-slate-700 w-11/12 text-center">
           CREATE USER
