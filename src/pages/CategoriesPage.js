@@ -14,6 +14,7 @@ const CategoriesPage = () => {
   const [onDetail, setOnDetail] = useState(false);
   const [categoryDetail, setCatDetail] = useState();
   const [update, setUpdate] = useState(false);
+  const user = useSelector((state) => state.user.value);
   const List = useSelector((state)=>state.categories.value)
   const itemsPerPage = 8;
   const [pageNum, setPageNum] = useState(0);
@@ -26,6 +27,7 @@ const CategoriesPage = () => {
     console.log(localStorage.getItem("accessToken"))
     if(localStorage.getItem("accessToken") === null)
     navigate('/login');
+    if(user.role !== "Admin") navigate('/');
   },[navigate])
   useEffect(()=> {
     axiosClient.get(`/categories/all`).then((res) => {

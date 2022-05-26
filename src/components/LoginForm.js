@@ -26,7 +26,7 @@ const Login = () => {
   }, [login])
 
   useEffect(()=>{
-      const user = localStorage.getItem("RequestGateUser");
+      const user = localStorage.getItem("RequestGateLoginUser");
       if(user) {
           const obj = JSON.parse(user);
           setLogin({email: obj, password: ""});
@@ -41,7 +41,7 @@ const Login = () => {
     e.preventDefault();
     if(remember){
         const saveLogin = JSON.stringify(login.email);
-        localStorage.setItem("RequestGateUser", saveLogin);
+        localStorage.setItem("RequestGateLoginUser", saveLogin);
     }
     axiosClient.post(`/users/login`, {
         email: login.email,
@@ -50,8 +50,11 @@ const Login = () => {
     (res) => {
         console.log(res.data)
         const user = res.data.user;
-        const accessToken = res?.data?.accessToken;
+        //lưu thông tin user hiện tại vào localstorage
+        const saveUser = JSON.stringify(user.email);
+        localStorage.setItem("RequestGateUser", saveUser);
         //save token
+        const accessToken = res?.data?.accessToken;
         localStorage.setItem("accessToken", accessToken);
         //
         dispatch(setUser({_id: user._id, email: user.email, name: user.name, role: user.role}))

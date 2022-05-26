@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../config/axiosClient";
 
 const RequestForm = () => {
   const user = useSelector((state) => state.user.value);
   const cat = useSelector((state) => state.categories.value);
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
   const [request, setRequest] = useState({
     name: "",
     content: "",
@@ -13,8 +15,11 @@ const RequestForm = () => {
     category: "",
   });
   useEffect(() => {
-        setCategories(cat);
-        setRequest({ ...request, category: cat[0].cat_name });
+        if(user.name === "") navigate('/');
+        else{
+          setCategories(cat);
+          setRequest({ ...request, category: cat[0].cat_name });
+        }
   }, []);
   useEffect(() => {
     if(request.category !== ""){

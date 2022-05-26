@@ -14,6 +14,7 @@ const UsersPage = () => {
   const [onDetail, setOnDetail] = useState(false);
   const [userDetail, setUserDetail] = useState();
   const [update, setUpdate] = useState(false);
+  const user = useSelector((state) => state.user.value);
   const List = useSelector((state)=>state.userList.value)
   const itemsPerPage = 8;
   const handleChange = (e) => {
@@ -32,6 +33,7 @@ const UsersPage = () => {
     console.log(localStorage.getItem("accessToken"))
     if(localStorage.getItem("accessToken") === null)
     navigate('/login');
+    if(user.role !== "Admin") navigate('/');
   },[navigate])
   return (
     <>
