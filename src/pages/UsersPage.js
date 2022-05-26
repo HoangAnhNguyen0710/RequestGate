@@ -14,7 +14,6 @@ const UsersPage = () => {
   const [onDetail, setOnDetail] = useState(false);
   const [userDetail, setUserDetail] = useState();
   const [update, setUpdate] = useState(false);
-  const isLoggedin = useSelector((state) => state.auth.value);
   const List = useSelector((state)=>state.userList.value)
   const itemsPerPage = 8;
   const handleChange = (e) => {
@@ -29,9 +28,11 @@ const UsersPage = () => {
     });
   },[dispatch, update])
 
-  useEffect(() => {
-    if (!isLoggedin) navigate("/Login");
-  }, [isLoggedin, navigate]);
+  useEffect(()=>{
+    console.log(localStorage.getItem("accessToken"))
+    if(localStorage.getItem("accessToken") === null)
+    navigate('/login');
+  },[navigate])
   return (
     <>
       {onDetail ? (

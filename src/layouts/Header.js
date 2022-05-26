@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setLoggedIn } from "../slices/auth";
+import { useNavigate } from "react-router-dom";
 import { initialStateValue, setUser } from "../slices/user";
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
   const LogOut = () => {
     dispatch(setUser(initialStateValue));
-    dispatch(setLoggedIn(false));
+    localStorage.removeItem("accessToken");
+    navigate("/login");
   };
   return (
     <>

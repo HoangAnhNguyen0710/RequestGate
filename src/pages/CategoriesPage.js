@@ -14,7 +14,6 @@ const CategoriesPage = () => {
   const [onDetail, setOnDetail] = useState(false);
   const [categoryDetail, setCatDetail] = useState();
   const [update, setUpdate] = useState(false);
-  const isLoggedin = useSelector((state) => state.auth.value);
   const List = useSelector((state)=>state.categories.value)
   const itemsPerPage = 8;
   const [pageNum, setPageNum] = useState(0);
@@ -23,9 +22,11 @@ const CategoriesPage = () => {
     setCatDetail({ ...categoryDetail, [e.target.name]: e.target.value });
   };
   let navigate = useNavigate();
-  useEffect(() => {
-    if (!isLoggedin) navigate("/Login");
-  }, [isLoggedin, navigate]);
+  useEffect(()=>{
+    console.log(localStorage.getItem("accessToken"))
+    if(localStorage.getItem("accessToken") === null)
+    navigate('/login');
+  },[navigate])
   useEffect(()=> {
     axiosClient.get(`/categories/all`).then((res) => {
       dispatch(setCatList(res.data));

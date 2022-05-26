@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { setUser } from "../slices/user";
-import { setLoggedIn } from "../slices/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axiosClient from "../config/axiosClient";
@@ -30,7 +29,7 @@ const Login = () => {
       const user = localStorage.getItem("RequestGateUser");
       if(user) {
           const obj = JSON.parse(user);
-          setLogin(obj);
+          setLogin({email: obj, password: ""});
       }
   }, [])
 
@@ -41,7 +40,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(remember){
-        const saveLogin = JSON.stringify(login)
+        const saveLogin = JSON.stringify(login.email);
         localStorage.setItem("RequestGateUser", saveLogin);
     }
     axiosClient.post(`/users/login`, {
@@ -56,7 +55,6 @@ const Login = () => {
         localStorage.setItem("accessToken", accessToken);
         //
         dispatch(setUser({_id: user._id, email: user.email, name: user.name, role: user.role}))
-        dispatch(setLoggedIn(true));
         navigate("/");
     } 
     ).catch((err) => {
@@ -67,7 +65,6 @@ const Login = () => {
         } else if(err.response?.status === 401)
             setErrMsg("Unauthorized")
         else{
-            // console.log(err.response.data)
             setErrMsg(err.response.data)
         }
     }

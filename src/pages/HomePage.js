@@ -12,21 +12,37 @@ import Pagination from "../components/Pagination";
 import HistoryRequests from "../components/HistoryRequests";
 import { setUserList } from "../slices/userList";
 import { setCatList } from "../slices/categories";
+import { setUser } from "../slices/user";
 import { setHistoryList } from "../slices/history";
 import axiosClient from "../config/axiosClient";
 const HomePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [update, setUpdate] = useState(false);
-  const isLoggedin = useSelector((state) => state.auth.value);
   //pagination
   const List = useSelector((state) => state.requests.value);
+  const user = useSelector((state) => state.user.value);
   const itemsPerPage = 8;
   const [pageNum, setPageNum] = useState(0);
   const newList = List.slice(
     itemsPerPage * pageNum,
     itemsPerPage * (pageNum + 1)
   );
-  let navigate = useNavigate();
+  useEffect(()=> {
+     if(user.email === ""){
+      const obj = localStorage.getItem("RequestGateUser")
+      const email = JSON.parse(obj);
+      const req = {email: email}
+      axiosClient.post(`/user`, req).then((res) => {
+        dispatch(setUser({_id: res.data._id, email: res.data.email, name: res.data.name, role: res.data.role}));
+      });
+     }
+  }, [dispatch])
+  useEffect(()=>{
+    console.log(localStorage.getItem("accessToken"))
+    if(localStorage.getItem("accessToken") === null)
+    navigate('/login');
+  },[navigate])
   useEffect(() => {
     axiosClient.get(`/requests/all`).then((res) => {
       const req = res.data;
@@ -45,10 +61,6 @@ const HomePage = () => {
       dispatch(setHistoryList(res.data));
     });
   }, [dispatch, update]);
-
-  useEffect(() => {
-    if (!isLoggedin) navigate("/Login");
-  }, [isLoggedin, navigate]);
 
   return (
     <>

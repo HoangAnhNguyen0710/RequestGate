@@ -5,7 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {configureStore} from '@reduxjs/toolkit';
 import userReducer from "./slices/user";
-import authReducer from "./slices/auth";
 import requestsReducer from "./slices/requests";
 import CategoriesReducer from "./slices/categories";
 import userListReducer from './slices/userList';
@@ -16,7 +15,6 @@ import "./assets/css/dist/output.css";
 const store = configureStore({
   reducer:{
     user: userReducer,
-    auth: authReducer,
     requests: requestsReducer,
     categories : CategoriesReducer,
     userList: userListReducer,
