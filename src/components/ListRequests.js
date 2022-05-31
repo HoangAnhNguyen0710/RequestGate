@@ -9,7 +9,7 @@ const ListRequests = (props) => {
   const [requests, setRequests] = useState([]);
   const user = useSelector((state) => state.user.value);
   const update = (req) => {
-    if (user.email === req.author) {
+    if (user.name === req.author) {
       setUpdateItem(req);
       setOnUpdate(true);
     }

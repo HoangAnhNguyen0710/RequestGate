@@ -41,7 +41,7 @@ const CategoryDetail = (props) => {
               <label className="w-1/2">Assignee</label>
               <select className="p-3 m-3 w-1/2 border-2 border-slate-700 text-sm" name="assignee" value={categoryDetail.assignee} onChange={props.handleChange}>
                 {assignee.map((assignee)=>
-                <option value={assignee.name}>{assignee.name}</option>
+                <option key={assignee._id} value={assignee.name}>{assignee.name}</option>
                 )}
             
               </select>

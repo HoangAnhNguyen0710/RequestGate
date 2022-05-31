@@ -28,7 +28,7 @@ const CategoriesPage = () => {
     if(localStorage.getItem("accessToken") === null)
     navigate('/login');
     if(user.role !== "Admin") navigate('/');
-  },[navigate])
+  },[navigate, user.role])
   useEffect(()=> {
     axiosClient.get(`/categories/all`).then((res) => {
       dispatch(setCatList(res.data));

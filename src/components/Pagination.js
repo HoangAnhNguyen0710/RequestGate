@@ -11,8 +11,8 @@ const handlePageClick = (data) => {
     nextLabel={'next'}
     breakLabel={'...'}
     pageCount={props.totalPage}
-    marginPagesDisplayed={3}
-    pageRangeDisplayed={3}
+    marginPagesDisplayed={2}
+    pageRangeDisplayed={2}
     onPageChange={handlePageClick}
     containerClassName="flex"
     pageClassName='p-1 px-2 border'

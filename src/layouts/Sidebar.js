@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSelector } from "react-redux";
-function Sidebar(props) {
+function Sidebar() {
   const user = useSelector((state) => state.user.value);
   return (
     <>

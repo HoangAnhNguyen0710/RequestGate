@@ -20,6 +20,7 @@ const RequestForm = () => {
           setCategories(cat);
           setRequest({ ...request, category: cat[0].cat_name });
         }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if(request.category !== ""){
@@ -30,6 +31,7 @@ const RequestForm = () => {
       })
       .catch((err) => console.log(err));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [request.category]);
 
   const handleChange = (e) => {

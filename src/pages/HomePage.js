@@ -37,7 +37,7 @@ const HomePage = () => {
         dispatch(setUser({_id: res.data._id, email: res.data.email, name: res.data.name, role: res.data.role}));
       });
      }
-  }, [dispatch])
+  }, [dispatch, user.email])
   useEffect(()=>{
     console.log(localStorage.getItem("accessToken"))
     if(localStorage.getItem("accessToken") === null)

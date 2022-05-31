@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import UserDetail from "../components/UserDetail";
 import { useDispatch } from "react-redux";
 import { setUserList } from "../slices/userList"; 
-import Pagination from "../components/Pagination";
 import axiosClient from "../config/axiosClient";
 const UsersPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ const UsersPage = () => {
     if(localStorage.getItem("accessToken") === null)
     navigate('/login');
     if(user.role !== "Admin") navigate('/');
-  },[navigate])
+  },[navigate, user.role])
   return (
     <>
       {onDetail ? (
