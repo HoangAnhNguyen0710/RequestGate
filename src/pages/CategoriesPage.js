@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setCatList } from "../slices/categories";
 import Pagination from "../components/Pagination";
 import axiosClient from "../config/axiosClient";
+import Header from "../layouts/Header";
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
@@ -52,6 +53,7 @@ const CategoriesPage = () => {
           <Sidebar />
         </div>
         <div className=" w-5/6">
+          <Header/>
           <ListCategories
             setOnDetail={setOnDetail}
             setCatDetail={setCatDetail}

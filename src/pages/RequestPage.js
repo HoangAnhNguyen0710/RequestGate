@@ -3,6 +3,7 @@ import Footer from "../layouts/Footer";
 import RequestForm from "../components/RequestForm";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Header from "../layouts/Header";
 const RequestPage = () => {
   let navigate = useNavigate();
   useEffect(()=>{
@@ -17,6 +18,7 @@ const RequestPage = () => {
           <Sidebar />
         </div>
         <div className=" w-5/6">
+          <Header/>
           <RequestForm />
         </div>
       </div>
