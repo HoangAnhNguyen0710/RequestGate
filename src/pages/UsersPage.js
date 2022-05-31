@@ -8,6 +8,7 @@ import UserDetail from "../components/UserDetail";
 import { useDispatch } from "react-redux";
 import { setUserList } from "../slices/userList"; 
 import axiosClient from "../config/axiosClient";
+import Header from "../layouts/Header";
 const UsersPage = () => {
   const dispatch = useDispatch();
   const [onDetail, setOnDetail] = useState(false);
@@ -52,6 +53,7 @@ const UsersPage = () => {
           <Sidebar />
         </div>
         <div className=" w-5/6">
+          <Header/>
           <ListUsers
             setOnDetail={setOnDetail}
             setUserDetail={setUserDetail}
