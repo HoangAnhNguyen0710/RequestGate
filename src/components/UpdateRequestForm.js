@@ -39,7 +39,6 @@ const UpdateReqForm = (props) => {
     e.preventDefault();
     console.log(request);
     props.setOnUpdate(false);
-    // setRequest(defaultReq);
     axiosClient
       .post(`/requests/update`, {
         _id: request._id,
@@ -50,7 +49,7 @@ const UpdateReqForm = (props) => {
         status: request.status,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         axiosClient.get(`/requests/all`).then((res) => {
           const req = res.data;
           dispatch(setRequests(req));
@@ -68,7 +67,13 @@ const UpdateReqForm = (props) => {
       })
       .catch((err) => console.log(err));
   };
-
+  const deleteReq = () => {
+    axiosClient.delete(`/requests/${request._id}`)
+      .then((res) => {
+      console.log(res);
+      props.setOnUpdate(false);
+    }).catch((err) => console.log(err));
+  }
   return (
     <>
       <div className="m-3 p-5 flex flex-col border-2">
@@ -82,7 +87,13 @@ const UpdateReqForm = (props) => {
               Update
             </button>
             <button
-              className="bg-red-500 text-slate-50 mx-3 px-1 py-1 shadow-lg"
+              className="bg-red-500 text-slate-50 mx-3 px-3 py-1 shadow-lg"
+              onClick={deleteReq}
+            >
+              Delete
+            </button>
+            <button
+              className="bg-yellow-500 text-slate-50 px-1 py-1 shadow-lg"
               onClick={()=> props.setOnUpdate(false)}
             >
               Cancel
