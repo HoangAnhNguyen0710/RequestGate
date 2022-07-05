@@ -65,10 +65,10 @@ const HomePage = () => {
   return (
     <>
       <div className="flex">
-        <div className="h-screen w-1/6">
+        <div className="h-screen hidden lg:w-1/6 lg:flex">
           <Sidebar />
         </div>
-        <div className="w-2/3">
+        <div className="lg:w-2/3 h-screen overflow-y-scroll w-full">
           <Header />
           <Filter />
           <div className="overflow-hidden">

@@ -39,7 +39,7 @@ const ListCategories = (props) => {
     props.setOnDetail(true);
   };
   return (
-    <div className="m-3 p-5 flex flex-col border-2 h-3/5">
+    <div className="m-3 p-5 flex flex-col border-2 h-3/5 overflow-x-scroll">
       <h4 className="w-11/12">LIST CATEGORIES</h4>
       <div className="flex">
         <form className="flex w-full" onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ const ListCategories = (props) => {
         />
       ) : (
         <>
-          <table className="table-fixed text-sm text-left border-2">
+          <table className="table-fixed text-sm text-left border-2 ">
             <thead>
               <tr className="bg-slate-300 py-6">
                 <th>Name</th>

@@ -39,7 +39,7 @@ const ListUsers = (props) => {
     props.setOnDetail(true);
   };
   return (
-    <div className="m-3 p-5 flex flex-col border-2 h-fit">
+    <div className="m-3 p-5 flex flex-col border-2 h-fit overflow-x-scroll">
       <h4 className="w-11/12">LIST USERS</h4>
       <div className="flex">
         <form className="flex w-full" onSubmit={handleSubmit}>

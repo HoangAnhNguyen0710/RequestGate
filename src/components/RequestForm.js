@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +48,7 @@ const RequestForm = () => {
         name: request.name,
         content: request.content,
         author: user.name,
-        date_created: new Date(),
+        date_created: moment().format('MMMM Do YYYY, h:mm:ss a'),
         category: request.category,
         assignee: request.assignee,
         status: "Open",

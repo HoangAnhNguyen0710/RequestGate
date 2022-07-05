@@ -5,14 +5,14 @@ const handlePageClick = (data) => {
         props.setPageNum(data.selected)
 }
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center overflow-x-scroll'>
     <ReactPaginate
-    previousLabel={'previous'}
+    previousLabel={'prev'}
     nextLabel={'next'}
     breakLabel={'...'}
     pageCount={props.totalPage}
     marginPagesDisplayed={2}
-    pageRangeDisplayed={2}
+    pageRangeDisplayed={1}
     onPageChange={handlePageClick}
     containerClassName="flex"
     pageClassName='p-1 px-2 border'
